@@ -6,6 +6,7 @@ import MainPage from "./pages/main";
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
 import LanguageChanger from "./shared/LanguageChanger";
+import I18nContext from './context/I18nContext'
 
 
 class App extends Component {
@@ -16,17 +17,22 @@ class App extends Component {
     render() {
         return (
             <div className="container">
-                <LanguageChanger language={this.state.language} onChange={lang => this.handleLanguageChange(lang)}/>
-                <h1>{this.props.i18n.t('Title')}</h1>
-                <MainPage i18n={this.props.i18n}/>
+                <I18nContext.Provider value={this.props.i18n}>
+
+                    <LanguageChanger language={this.state.language} onChange={lang => this.handleLanguageChange(lang)}/>
+                    <h1>{this.props.i18n.t('Title')}</h1>
+                    <MainPage/>
+                </I18nContext.Provider>
             </div>
         );
     }
 
     componentDidMount() {
-        this.setState({
-            language: this.props.i18n.language
-        })
+        this.setState((state, props) => {
+            return {
+                language: props.i18n.language
+            }
+        });
     }
 
     handleLanguageChange(lang) {

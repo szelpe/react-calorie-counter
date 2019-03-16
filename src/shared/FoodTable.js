@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import I18nContext from "../context/I18nContext";
 
 function FoodTable(props) {
+    let i18n = useContext(I18nContext);
+    
     return (
         <div>
             <table className="table">
                 <thead>
                 <tr>
-                    <td colSpan="2">{props.i18n.t('FoodTable.Sum', { Sum: sumOfCalories(props.foods) })}</td>
+                    <td colSpan="2">{i18n.t('FoodTable.Sum', { Sum: sumOfCalories(props.foods) })}</td>
                 </tr>
                 <tr>
-                    <th>{props.i18n.t('FoodTable.Food')}</th>
-                    <th>{props.i18n.t('FoodTable.Calories')}</th>
+                    <th>{i18n.t('FoodTable.Food')}</th>
+                    <th>{i18n.t('FoodTable.Calories')}</th>
                 </tr>
                 </thead>
                 <tbody>

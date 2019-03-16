@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 
 import {required, range} from '../../shared/validators'
 import Validate from '../../utils/Validate'
+import I18nContext from "../../context/I18nContext";
 
 export default function MainPageController(MainPage) {
     return class extends Component {
         static displayName = `MainPageController(${MainPage.name})`;
+        static contextType = I18nContext;
 
         defaultFormValues = {
             foodName: '',
