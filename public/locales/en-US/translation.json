@@ -1,0 +1,19 @@
+{
+  "Title": "Calorie Counter",
+  "MainPage": {
+    "TodayCaloriesTitle": "Today's Calories So Far..."
+  },
+  "FoodForm": {
+    "Add": "Add",
+    "Food": "Food",
+    "Calories": "Calories"
+  },
+  "MainFoodForm": {
+    "AddFood": "Add Food"
+  },
+  "FoodTable": {
+    "Sum": "Sum: {{Sum}}",
+    "Food": "Food",
+    "Calories": "Calories"
+  }
+}

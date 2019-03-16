@@ -13,10 +13,11 @@ function MainPage(props) {
                 onFieldBlur={props.onFoodFormFieldBlur}
                 values={props.foodFormValues}
                 errors={props.foodFormErrors}
+                i18n={props.i18n}
             />
 
-            <h2>Today's foods so far</h2>
-            <MainFoodTable foods={props.foodsForToday}/>
+            <h2>{props.i18n.t('MainPage.TodayCaloriesTitle')}</h2>
+            <MainFoodTable foods={props.foodsForToday} i18n={props.i18n}/>
         </div>
     );
 }

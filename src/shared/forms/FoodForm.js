@@ -2,12 +2,11 @@ import React from 'react'
 import InputField from "./fields/InputField";
 import Button from "./fields/Button";
 
-
 export default function FoodForm(props) {
     return (
         <form onSubmit={handleSubmit}>
             <InputField
-                labelText={'Food'}
+                labelText={props.i18n.t('FoodForm.Food')}
                 id="foodName"
                 value={props.values.foodName}
                 error={props.errors.foodName}
@@ -16,7 +15,7 @@ export default function FoodForm(props) {
             />
 
             <InputField
-                labelText={'Calories'}
+                labelText={props.i18n.t('FoodForm.Calories')}
                 type="number"
                 id="calorieAmount"
                 value={props.values.calorieAmount}
@@ -25,7 +24,7 @@ export default function FoodForm(props) {
                 onBlur={props.onFieldBlur}
             />
 
-            <Button type="submit">Add</Button>
+            <Button type="submit">{props.i18n.t('FoodForm.Add')}</Button>
         </form>
     );
 

@@ -6,11 +6,11 @@ function FoodTable(props) {
             <table className="table">
                 <thead>
                 <tr>
-                    <td colSpan="2">Sum: {sumOfCalories(props.foods)}</td>
+                    <td colSpan="2">{props.i18n.t('FoodTable.Sum', { Sum: sumOfCalories(props.foods) })}</td>
                 </tr>
                 <tr>
-                    <th>Food</th>
-                    <th>Calories</th>
+                    <th>{props.i18n.t('FoodTable.Food')}</th>
+                    <th>{props.i18n.t('FoodTable.Calories')}</th>
                 </tr>
                 </thead>
                 <tbody>

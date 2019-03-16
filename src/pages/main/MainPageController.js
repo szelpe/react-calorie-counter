@@ -38,6 +38,7 @@ export default function MainPageController(MainPage) {
                 onFoodFormSubmit={this.handleFoodFormSubmit}
                 onFoodFormFieldChange={this.handleFoodFormFieldChange}
                 onFoodFormFieldBlur={this.handleFoodFormFieldBlur}
+                {...this.props}
             />;
         }
 
