@@ -1,10 +1,10 @@
 export default function (errorMessage) {
     return value => {
         let error = '';
-        let errorMessage = errorMessage || 'Field is required';
+        let message = errorMessage || 'Field is required';
 
         if (value == null || value.length === 0) {
-            error = errorMessage;
+            error = message;
         }
 
         return {

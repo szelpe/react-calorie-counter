@@ -1,7 +1,7 @@
 export default function (errorMessage, min, max) {
     return value => {
         let error = '';
-        let errorMessage = errorMessage || `Field value must be between ${min} and ${max}`;
+        let message = errorMessage || `Field value must be between ${min} and ${max}`;
 
         if (value == null) {
             return { isValid: true };
@@ -9,8 +9,12 @@ export default function (errorMessage, min, max) {
 
         let numericValue = Number(value);
 
+        if (isNaN(numericValue)) {
+            throw new Error('The provided value is not a valid number');
+        }
+
         if (numericValue < min || numericValue > max) {
-            error = errorMessage;
+            error = message;
         }
 
         return {
