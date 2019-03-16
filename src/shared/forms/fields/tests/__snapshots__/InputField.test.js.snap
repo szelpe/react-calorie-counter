@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="form-group"
+>
+  <label />
+  <input
+    className="form-control"
+    onBlur={[Function]}
+    onChange={[Function]}
+    type="text"
+  />
+  <span
+    className="text-danger"
+  />
+</div>
+`;
