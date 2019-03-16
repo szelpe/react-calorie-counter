@@ -14,6 +14,7 @@
   "FoodTable": {
     "Sum": "Sum: {{Sum}}",
     "Food": "Food",
-    "Calories": "Calories"
+    "Calories": "Calories",
+    "NoFood": "No food so far today"
   }
 }

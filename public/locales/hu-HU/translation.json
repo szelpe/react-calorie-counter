@@ -14,6 +14,7 @@
   "FoodTable": {
     "Sum": "Összeg: {{Sum}}",
     "Food": "Étel",
-    "Calories": "Kalória"
+    "Calories": "Kalória",
+    "NoFood": "Ma még nem ettél semmit"
   }
 }
