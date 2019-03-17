@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-import {required, range} from '../../shared/validators'
-import Validate from '../../utils/Validate'
+import {range, required} from "../../../shared/validators";
+import Validate from "../../../utils/Validate";
 
-export default function MainPageController(MainPage) {
-    return class extends Component {
-        static displayName = `MainPageController(${MainPage.name})`;
+function MainFoodFormController(Form) {
+    return class extends React.Component {
+        static displayName = `MainFoodFormController(${Form.name})`;
 
         defaultFormValues = {
             foodName: '',
@@ -19,8 +19,7 @@ export default function MainPageController(MainPage) {
             formFieldErrors: {
                 foodName: '',
                 calorieAmount: ''
-            },
-            foodsForToday: []
+            }
         };
 
         validators = {
@@ -30,31 +29,19 @@ export default function MainPageController(MainPage) {
 
         validate = Validate(this.validators);
 
-        render() {
-            return <MainPage
-                foodsForToday={this.state.foodsForToday}
-                foodFormValues={this.state.formFieldValues}
-                foodFormErrors={this.state.formFieldErrors}
-                onFoodFormSubmit={this.handleFoodFormSubmit}
-                onFoodFormFieldChange={this.handleFoodFormFieldChange}
-                onFoodFormFieldBlur={this.handleFoodFormFieldBlur}
-                {...this.props}
-            />;
-        }
-
-        handleFoodFormSubmit() {
+        handleFoodFormSubmit = () => {
             if (!this.isFormValid()) {
                 return;
             }
 
+            this.props.onSubmit(this.state.formFieldValues);
+
             this.setState(state => {
                 return {
-                    foodsForToday: [...state.foodsForToday, state.formFieldValues],
                     formFieldValues: {...this.defaultFormValues}
                 };
             });
-
-        }
+        };
 
         isFormValid() {
             let result = this.validate.form(this.state.formFieldValues);
@@ -64,11 +51,11 @@ export default function MainPageController(MainPage) {
             return result.isValid;
         }
 
-        handleFoodFormFieldBlur(field) {
+        handleFoodFormFieldBlur = (field) => {
             this.validateField(field);
-        }
+        };
 
-        handleFoodFormFieldChange(field) {
+        handleFoodFormFieldChange = (field) => {
             this.setState(state => {
                 return {
                     formFieldValues: {
@@ -79,7 +66,7 @@ export default function MainPageController(MainPage) {
             });
 
             this.validateField(field);
-        }
+        };
 
         validateField(field) {
             let result = this.validate.field(field);
@@ -98,8 +85,19 @@ export default function MainPageController(MainPage) {
             });
         }
 
-        handleFoodFormSubmit = this.handleFoodFormSubmit.bind(this);
-        handleFoodFormFieldChange = this.handleFoodFormFieldChange.bind(this);
-        handleFoodFormFieldBlur = this.handleFoodFormFieldBlur.bind(this);
+        render() {
+            let { onSubmit, ...restProps } = this.props;
+
+            return <Form
+                values={this.state.formFieldValues}
+                errors={this.state.formFieldErrors}
+                onSubmit={this.handleFoodFormSubmit}
+                onFieldChange={this.handleFoodFormFieldChange}
+                onFieldBlur={this.handleFoodFormFieldBlur}
+                {...restProps}
+            />;
+        }
     }
 }
+
+export default MainFoodFormController;

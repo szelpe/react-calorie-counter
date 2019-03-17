@@ -32,6 +32,10 @@ function EmptyState(props) {
 }
 
 function sumOfCalories(foods) {
+    if (!foods || foods.length === 0) {
+        return 0;
+    }
+
     return foods
         .map(f => f.calorieAmount)
         .sum();
