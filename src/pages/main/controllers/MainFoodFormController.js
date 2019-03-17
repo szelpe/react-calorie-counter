@@ -17,8 +17,8 @@ function MainFoodFormController(Form) {
                 ...this.defaultFormValues
             },
             formFieldErrors: {
-                foodName: '',
-                calorieAmount: ''
+                foodName: [''],
+                calorieAmount: ['']
             }
         };
 

@@ -3,7 +3,7 @@ import FoodTable from "../../../shared/FoodTable";
 
 function MainFoodTable(props) {
     return (
-        <div>
+        <div className="main-food-table">
             <FoodTable {...props} />
         </div>
     );
