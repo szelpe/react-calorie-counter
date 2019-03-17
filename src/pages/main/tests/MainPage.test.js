@@ -13,7 +13,7 @@ test('should add new food item', () => {
     wrapper.find('input[name="calorieAmount"]').simulate('change', {target: {name: 'calorieAmount', value: '123'}});
     wrapper.find('form').simulate('submit');
 
-    let foodTableWrapper = wrapper.find('.main-food-table');
+    let foodTableWrapper = wrapper.find('[data-test="main-food-table"]');
     expect(foodTableWrapper.text()).toContain('test');
     expect(foodTableWrapper.text()).toContain('123');
 });
