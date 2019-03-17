@@ -38,8 +38,8 @@ function MainFoodFormController(Form) {
             let fieldValues = this.state.formFieldValues;
 
             FoodService.post(fieldValues)
-                .then(() => {
-                    this.props.onSubmit(fieldValues);
+                .then(response => {
+                    this.props.onSubmit({ ...fieldValues, ...response });
                     this.resetForm();
                 });
         };

@@ -14,7 +14,7 @@ function FoodTable(props) {
                 </tr>
                 </thead>
                 <tbody>
-                {props.foods.map((food, i) => <FoodLine key={i} food={food}/>)}
+                {props.foods.map(food => <FoodLine key={food.id} food={food}/>)}
                 {props.foods.length === 0 && <EmptyState i18n={props.i18n} />}
                 </tbody>
             </table>

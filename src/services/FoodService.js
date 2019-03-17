@@ -11,6 +11,7 @@ export default {
 async function get() {
     return await httpClient.get('/foods');
 }
+
 async function post(food) {
     return await httpClient.post('/foods', food);
 }

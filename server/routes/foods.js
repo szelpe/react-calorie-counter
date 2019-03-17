@@ -18,8 +18,8 @@ router.post('/', function (req, res, next) {
     }
 
     foodRepository.save(food)
-        .then(() => {
-            res.status(200).send();
+        .then(id => {
+            res.status(200).json({ id });
         });
 });
 
