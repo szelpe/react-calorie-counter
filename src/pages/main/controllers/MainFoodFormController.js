@@ -2,6 +2,7 @@ import React from 'react';
 
 import {range, required} from "../../../shared/validators";
 import Validate from "../../../utils/Validate";
+import FoodService from "../../../services/FoodService";
 
 function MainFoodFormController(Form) {
     return class extends React.Component {
@@ -34,14 +35,22 @@ function MainFoodFormController(Form) {
                 return;
             }
 
-            this.props.onSubmit(this.state.formFieldValues);
+            let fieldValues = this.state.formFieldValues;
 
+            FoodService.post(fieldValues)
+                .then(() => {
+                    this.props.onSubmit(fieldValues);
+                    this.resetForm();
+                });
+        };
+
+        resetForm() {
             this.setState(state => {
                 return {
                     formFieldValues: {...this.defaultFormValues}
                 };
             });
-        };
+        }
 
         isFormValid() {
             let result = this.validate.form(this.state.formFieldValues);
@@ -86,7 +95,7 @@ function MainFoodFormController(Form) {
         }
 
         render() {
-            let { onSubmit, ...restProps } = this.props;
+            let {onSubmit, ...restProps} = this.props;
 
             return <Form
                 values={this.state.formFieldValues}

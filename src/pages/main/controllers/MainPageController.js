@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import FoodService from "../../../services/FoodService";
 
 export default function MainPageController(MainPage) {
     return class extends Component {
@@ -7,6 +8,13 @@ export default function MainPageController(MainPage) {
         state = {
             foodsForToday: []
         };
+
+        componentDidMount() {
+            FoodService.get()
+                .then(foods => this.setState({
+                    foodsForToday: foods
+                }));
+        }
 
         handleFoodFormSubmit = (formFieldValues) => {
             this.setState(state => {

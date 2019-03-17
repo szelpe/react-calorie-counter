@@ -2,20 +2,24 @@ var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database(':memory:');
 
 db.serialize(function () {
-    db.run('CREATE TABLE lorem (info TEXT)');
+    db.run(`
+CREATE TABLE food (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  foodName varchar(300),
+  calorieAmount varchar(100)
+);
+`);
 
 
-    var stmt = db.prepare('INSERT INTO lorem VALUES (?)');
+    var statement = db.prepare('INSERT INTO food (foodName, calorieAmount) VALUES (?, ?)');
 
-    for (var i = 0; i < 10; i++) {
-        stmt.run('Ipsum ' + i)
-    }
+    statement.run('Chicken brest', '320');
+    statement.run('Rice', '330');
 
-    stmt.finalize();
-
-    db.each('SELECT rowid AS id, info FROM lorem', function (err, row) {
-        console.log(row.id + ': ' + row.info)
-    })
+    statement.finalize();
 });
 
-db.close();
+//db.close();
+
+
+module.exports = db;
