@@ -39,7 +39,11 @@ function MainFoodFormController(Form) {
 
             FoodService.post(fieldValues)
                 .then(response => {
-                    this.props.onSubmit({ ...fieldValues, ...response });
+                    if (response == null || response.id == null) {
+                        throw new Error("The response was empty or the `id` property was missing.");
+                    }
+
+                    this.props.onSubmit({ ...fieldValues,  id: response.id });
                     this.resetForm();
                 });
         };
