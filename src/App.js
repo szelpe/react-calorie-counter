@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import './utils/ArrayExtensions'
 
+import './utils/ArrayExtensions'
 import MainPage from "./pages/main";
+import LanguageChanger from "./shared/LanguageChanger";
+import I18nContext from './context/I18nContext';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
-import LanguageChanger from "./shared/LanguageChanger";
-
 
 class App extends Component {
     state = {
@@ -15,11 +15,13 @@ class App extends Component {
 
     render() {
         return (
-            <div className="container">
-                <LanguageChanger language={this.state.language} onChange={lang => this.handleLanguageChange(lang)}/>
-                <h1>{this.props.i18n.t('Title')}</h1>
-                <MainPage i18n={this.props.i18n}/>
-            </div>
+            <I18nContext.Provider value={this.props.i18n}>
+                <div className="container">
+                    <LanguageChanger language={this.state.language} onChange={lang => this.handleLanguageChange(lang)}/>
+                    <h1>{this.props.i18n.t('Title')}</h1>
+                    <MainPage i18n={this.props.i18n}/>
+                </div>
+            </I18nContext.Provider>
         );
     }
 

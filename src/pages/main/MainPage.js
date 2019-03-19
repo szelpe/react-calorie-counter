@@ -5,12 +5,12 @@ import './MainPage.css'
 import MainFoodTable from "./components/MainFoodTable";
 import FoodFormController from "../../shared/forms/FoodFormController";
 
-let ControlledFoodForm = FoodFormController(MainFoodForm, 'Create');
+let FoodFormContainer = FoodFormController(MainFoodForm, 'Create');
 
 function MainPage(props) {
     return (
         <div>
-            <ControlledFoodForm
+            <FoodFormContainer
                 onSubmit={props.onFoodFormSubmit}
                 i18n={props.i18n}
             />

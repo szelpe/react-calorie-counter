@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import FoodTableController from "./FoodTableController";
 import FoodFormController from "./forms/FoodFormController";
+import I18nContext from "../context/I18nContext";
 
 function FoodTable(props) {
+    let i18n = useContext(I18nContext);
+
     return (
         <div>
             <table className="table">
                 <thead>
                 <tr>
-                    <td colSpan="3">{props.i18n.t('FoodTable.Sum', {Sum: sumOfCalories(props.foods)})}</td>
+                    <td colSpan="3">{i18n.t('FoodTable.Sum', {Sum: sumOfCalories(props.foods)})}</td>
                 </tr>
                 <tr>
-                    <th>{props.i18n.t('FoodTable.Food')}</th>
-                    <th>{props.i18n.t('FoodTable.Calories')}</th>
+                    <th>{i18n.t('FoodTable.Food')}</th>
+                    <th>{i18n.t('FoodTable.Calories')}</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -21,7 +24,7 @@ function FoodTable(props) {
                     ? <EditFoodLineContainer key={food.id} initialValue={food} onCancel={props.onFoodEditEnd}  onSubmit={props.onFoodEditEnd} />
                     : <FoodLine key={food.id} food={food}
                                 onFoodEditClick={props.onFoodEditClick}/>)}
-                {props.foods.length === 0 && <EmptyState i18n={props.i18n}/>}
+                {props.foods.length === 0 && <EmptyState />}
                 </tbody>
             </table>
         </div>
@@ -30,9 +33,11 @@ function FoodTable(props) {
 }
 
 function EmptyState(props) {
+    let i18n = useContext(I18nContext);
+
     return <tr className="text-center">
         <td colSpan="2">
-            {props.i18n.t('FoodTable.NoFood')}
+            {i18n.t('FoodTable.NoFood')}
         </td>
     </tr>;
 }
