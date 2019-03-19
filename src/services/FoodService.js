@@ -5,13 +5,13 @@ let httpClient = new HttpClient(config.baseUrl);
 
 export default {
     get,
-    post
+    save
 }
 
 async function get() {
     return await httpClient.get('/foods');
 }
 
-async function post(food) {
+async function save(food) {
     return await httpClient.post('/foods', food);
 }

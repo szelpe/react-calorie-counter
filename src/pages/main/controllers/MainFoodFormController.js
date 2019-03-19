@@ -37,7 +37,7 @@ function MainFoodFormController(Form) {
 
             let fieldValues = this.state.formFieldValues;
 
-            FoodService.post(fieldValues)
+            FoodService.save(fieldValues)
                 .then(response => {
                     if (response == null || response.id == null) {
                         throw new Error("The response was empty or the `id` property was missing.");
