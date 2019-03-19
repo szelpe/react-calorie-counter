@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import InputField from "./fields/InputField";
 import Button from "./fields/Button";
+import I18nContext from "../../context/I18nContext";
 
 export default function FoodForm(props) {
+    let { i18n } = useContext(I18nContext);
+
     return (
         <form onSubmit={handleSubmit}>
             <InputField
-                labelText={props.i18n.t('FoodForm.Food')}
+                labelText={i18n.t('FoodForm.Food')}
                 id="foodName"
                 value={props.values.foodName}
                 error={props.errors.foodName}
@@ -15,7 +18,7 @@ export default function FoodForm(props) {
             />
 
             <InputField
-                labelText={props.i18n.t('FoodForm.Calories')}
+                labelText={i18n.t('FoodForm.Calories')}
                 type="number"
                 id="calorieAmount"
                 value={props.values.calorieAmount}
@@ -24,7 +27,7 @@ export default function FoodForm(props) {
                 onBlur={props.onFieldBlur}
             />
 
-            <Button type="submit">{props.i18n.t('FoodForm.Add')}</Button>
+            <Button type="submit">{i18n.t('FoodForm.Add')}</Button>
         </form>
     );
 

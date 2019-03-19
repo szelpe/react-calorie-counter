@@ -4,7 +4,7 @@ import FoodFormController from "./forms/FoodFormController";
 import I18nContext from "../context/I18nContext";
 
 function FoodTable(props) {
-    let i18n = useContext(I18nContext);
+    let { i18n } = useContext(I18nContext);
 
     return (
         <div>
@@ -33,7 +33,7 @@ function FoodTable(props) {
 }
 
 function EmptyState(props) {
-    let i18n = useContext(I18nContext);
+    let { i18n } = useContext(I18nContext);
 
     return <tr className="text-center">
         <td colSpan="2">

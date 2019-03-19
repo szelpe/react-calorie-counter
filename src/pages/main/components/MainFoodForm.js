@@ -5,7 +5,7 @@ import I18nContext from '../../../context/I18nContext';
 function MainFoodForm(props) {
     return (
         <I18nContext.Consumer>
-            {i18n =>
+            {({i18n}) =>
                 <div className="main-food-form card">
                     <div className="card-header">{i18n.t('MainFoodForm.AddFood')}</div>
                     <div className="card-body">

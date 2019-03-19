@@ -10,16 +10,22 @@ import './App.css';
 
 class App extends Component {
     state = {
-        language: 'en-US'
+        locale: {
+            language: 'en-US',
+            i18n: {
+                t: () => {
+                }
+            }
+        }
     };
 
     render() {
         return (
-            <I18nContext.Provider value={this.props.i18n}>
+            <I18nContext.Provider value={this.state.locale}>
                 <div className="container">
-                    <LanguageChanger language={this.state.language} onChange={lang => this.handleLanguageChange(lang)}/>
+                    <LanguageChanger language={this.state.locale.language} onChange={lang => this.handleLanguageChange(lang)}/>
                     <h1>{this.props.i18n.t('Title')}</h1>
-                    <MainPage i18n={this.props.i18n}/>
+                    <MainPage/>
                 </div>
             </I18nContext.Provider>
         );
@@ -27,14 +33,20 @@ class App extends Component {
 
     componentDidMount() {
         this.setState({
-            language: this.props.i18n.language
+            locale: {
+                language: this.props.i18n.language,
+                i18n: this.props.i18n
+            }
         })
     }
 
     handleLanguageChange(lang) {
         this.props.i18n.changeLanguage(lang, () => {
             this.setState({
-                language: lang
+                locale: {
+                    language: lang,
+                    i18n: this.props.i18n
+                }
             });
         });
     }
