@@ -1,27 +1,27 @@
 import React from 'react';
 
-import {range, required} from "../../../shared/validators";
-import Validate from "../../../utils/Validate";
-import FoodService from "../../../services/FoodService";
+import {range, required} from "../validators";
+import Validate from "../../utils/Validate";
+import FoodService from "../../services/FoodService";
 
-function MainFoodFormController(Form) {
+function FoodFormController(Form, action) {
     return class extends React.Component {
-        static displayName = `MainFoodFormController(${Form.name})`;
-
-        defaultFormValues = {
-            foodName: '',
-            calorieAmount: ''
+        static displayName = `FoodFormController(${Form.name})`;
+        static defaultProps = {
+            initialValue: {}
         };
 
-        state = {
-            formFieldValues: {
-                ...this.defaultFormValues
-            },
-            formFieldErrors: {
-                foodName: '',
-                calorieAmount: ''
-            }
-        };
+        constructor(props, context) {
+            super(props, context);
+
+            this.state = {
+                formFieldValues: this.getDefaultValues(props),
+                formFieldErrors: {
+                    foodName: '',
+                    calorieAmount: ''
+                }
+            };
+        }
 
         validators = {
             foodName: [required()],
@@ -30,6 +30,13 @@ function MainFoodFormController(Form) {
 
         validate = Validate(this.validators);
 
+        getDefaultValues(props) {
+            return {
+                foodName: props.initialValue.foodName || '',
+                calorieAmount: props.initialValue.calorieAmount || ''
+            };
+        }
+
         handleFoodFormSubmit = () => {
             if (!this.isFormValid()) {
                 return;
@@ -37,13 +44,15 @@ function MainFoodFormController(Form) {
 
             let fieldValues = this.state.formFieldValues;
 
-            FoodService.post(fieldValues)
+            let serviceAction = (action === 'Create') ? FoodService.post : FoodService.edit;
+
+            serviceAction(fieldValues)
                 .then(response => {
                     if (response == null || response.id == null) {
                         throw new Error("The response was empty or the `id` property was missing.");
                     }
 
-                    this.props.onSubmit({ ...fieldValues,  id: response.id });
+                    this.props.onSubmit({...fieldValues, id: response.id});
                     this.resetForm();
                 });
         };
@@ -51,7 +60,7 @@ function MainFoodFormController(Form) {
         resetForm() {
             this.setState(state => {
                 return {
-                    formFieldValues: {...this.defaultFormValues}
+                    formFieldValues: this.getDefaultValues(this.props)
                 };
             });
         }
@@ -113,4 +122,4 @@ function MainFoodFormController(Form) {
     }
 }
 
-export default MainFoodFormController;
+export default FoodFormController;

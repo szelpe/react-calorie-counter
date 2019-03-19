@@ -1,4 +1,6 @@
 import React from 'react';
+import FoodTableController from "./FoodTableController";
+import FoodFormController from "./forms/FoodFormController";
 
 function FoodTable(props) {
     return (
@@ -6,16 +8,20 @@ function FoodTable(props) {
             <table className="table">
                 <thead>
                 <tr>
-                    <td colSpan="2">{props.i18n.t('FoodTable.Sum', {Sum: sumOfCalories(props.foods)})}</td>
+                    <td colSpan="3">{props.i18n.t('FoodTable.Sum', {Sum: sumOfCalories(props.foods)})}</td>
                 </tr>
                 <tr>
                     <th>{props.i18n.t('FoodTable.Food')}</th>
                     <th>{props.i18n.t('FoodTable.Calories')}</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                {props.foods.map(food => <FoodLine key={food.id} food={food}/>)}
-                {props.foods.length === 0 && <EmptyState i18n={props.i18n} />}
+                {props.foods.map(food => props.currentlyEditedFoodId === food.id
+                    ? <EditFoodLineContainer key={food.id} initialValue={food} onCancel={props.onFoodEditEnd}  onSubmit={props.onFoodEditEnd} />
+                    : <FoodLine key={food.id} food={food}
+                                onFoodEditClick={props.onFoodEditClick}/>)}
+                {props.foods.length === 0 && <EmptyState i18n={props.i18n}/>}
                 </tbody>
             </table>
         </div>
@@ -45,7 +51,54 @@ function FoodLine(props) {
     return <tr>
         <td>{props.food.foodName}</td>
         <td>{props.food.calorieAmount}</td>
+        <td>
+            <button type="button" className="btn btn-primary" onClick={() => props.onFoodEditClick(props.food)}>Edit</button>
+        </td>
     </tr>;
 }
 
-export default FoodTable;
+let EditFoodLineContainer = FoodFormController(EditFoodLine, 'Edit');
+
+function EditFoodLine(props) {
+    return <tr>
+        <td><input type="text"
+                   value={props.values.foodName}
+                   name="foodName"
+                   onChange={handleChange}
+                   onBlur={handleBlur}
+                   className="form-control"
+        />
+            <span className="text-danger">{props.errors.foodName}</span>
+        </td>
+        <td><input type="number"
+                   value={props.values.calorieAmount}
+                   name="calorieAmount"
+                   onChange={handleChange}
+                   onBlur={handleBlur}
+                   className="form-control"
+        />
+            <span className="text-danger">{props.errors.calorieAmount}</span>
+        </td>
+        <td>
+            <button type="submit" className="btn btn-primary" onClick={() => props.onSaveFoodEditClick(props.food)}>Save</button>
+            <button type="button" className="btn btn-danger" onClick={props.onCancel}>Cancel</button>
+        </td>
+    </tr>;
+
+
+    function handleChange(event) {
+        props.onFieldChange({
+            name: event.target.name,
+            value: event.target.value
+        });
+    }
+
+    function handleBlur(event) {
+        props.onFieldBlur({
+            name: event.target.name,
+            value: event.target.value
+        });
+    }
+}
+
+export default FoodTableController(FoodTable);

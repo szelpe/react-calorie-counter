@@ -5,7 +5,8 @@ let httpClient = new HttpClient(config.baseUrl);
 
 export default {
     get,
-    post
+    post,
+    edit
 }
 
 async function get() {
@@ -14,4 +15,8 @@ async function get() {
 
 async function post(food) {
     return await httpClient.post('/foods', food);
+}
+
+async function edit(food) {
+    return await httpClient.put('/foods', food);
 }

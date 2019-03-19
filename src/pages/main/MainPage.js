@@ -3,9 +3,9 @@ import MainFoodForm from "./components/MainFoodForm";
 
 import './MainPage.css'
 import MainFoodTable from "./components/MainFoodTable";
-import MainFoodFormController from "./controllers/MainFoodFormController";
+import FoodFormController from "../../shared/forms/FoodFormController";
 
-let ControlledFoodForm = MainFoodFormController(MainFoodForm);
+let ControlledFoodForm = FoodFormController(MainFoodForm, 'Create');
 
 function MainPage(props) {
     return (
@@ -16,7 +16,7 @@ function MainPage(props) {
             />
 
             <h2>{props.i18n.t('MainPage.TodayCaloriesTitle')}</h2>
-            <MainFoodTable foods={props.foodsForToday} i18n={props.i18n}/>
+            <MainFoodTable foods={props.foodsForToday} i18n={props.i18n} />
         </div>
     );
 }
