@@ -4,7 +4,8 @@ import Button from "./fields/Button";
 import I18nContext from "../../context/I18nContext";
 
 export default function FoodForm(props) {
-    let { i18n } = useContext(I18nContext);
+    //let { i18n } = useContext(I18nContext);
+    let i18n = { t: () => 'Text' };
 
     return (
         <form onSubmit={handleSubmit}>

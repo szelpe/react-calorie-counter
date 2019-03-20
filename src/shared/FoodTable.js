@@ -8,7 +8,7 @@ function FoodTable(props) {
 
     return (
         <div>
-            <table className="table">
+            <table className="table" data-testid="food-table">
                 <thead>
                 <tr>
                     <td colSpan="3">{i18n.t('FoodTable.Sum', {Sum: sumOfCalories(props.foods)})}</td>
