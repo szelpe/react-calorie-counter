@@ -7,6 +7,7 @@ import I18nContext from './context/I18nContext';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
+import AboutPage from "./pages/about/AboutPage";
 
 class App extends Component {
     state = {
@@ -26,6 +27,7 @@ class App extends Component {
                     <LanguageChanger language={this.state.locale.language} onChange={lang => this.handleLanguageChange(lang)}/>
                     <h1>{this.props.i18n.t('Title')}</h1>
                     <MainPage/>
+                    <AboutPage />
                 </div>
             </I18nContext.Provider>
         );
