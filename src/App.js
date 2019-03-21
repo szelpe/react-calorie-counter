@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {HashRouter as Router, Route} from 'react-router-dom';
 
 import './utils/ArrayExtensions'
 import MainPage from "./pages/main";
@@ -24,12 +25,16 @@ class App extends Component {
     render() {
         return (
             <I18nContext.Provider value={this.state.locale}>
-                <div className="container">
-                    <Header language={this.state.locale.language} onLanguageChange={lang => this.handleLanguageChange(lang)}/>
+                <Router>
+                    <div className="container">
+                        <Header language={this.state.locale.language}
+                                onLanguageChange={lang => this.handleLanguageChange(lang)}/>
 
-                    <MainPage/>
-                    <AboutPage />
-                </div>
+                        <Route path="/" exact component={MainPage} />
+                        <Route path="/about" exact component={AboutPage} />
+
+                    </div>
+                </Router>
             </I18nContext.Provider>
         );
     }
