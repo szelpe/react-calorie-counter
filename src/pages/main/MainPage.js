@@ -13,6 +13,7 @@ function MainPage(props) {
 
     return (
         <div>
+            <h2>Food Tracker</h2>
             <FoodFormContainer
                 onSubmit={props.onFoodFormSubmit}
             />
